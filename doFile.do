@@ -152,7 +152,7 @@ twoway	scatteri 80 2006  80 2021, bcolor(gray%25) recast(area) plotr(m(zero)) //
 		xlabel(1985(4)2019) 												 ///
 		legend(off)															 ///
 		note("Source: The V-Dem Dataset")
-		graph export "Fig_V-Dem_NIC.png", replace
+		graph export "Figures/Fig_V-Dem_NIC.png", replace
 		
 		
 global title	= "V-Dem Liberal Democracy Index in Venezuela"
