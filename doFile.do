@@ -14,8 +14,7 @@
 *|------------------------------------------------------------------------------
 
 *| Directory
-cd "\Users\ncachanosky\OneDrive\Research\Working Papers\Paper - Populism (SCA)"
-
+cd "\Users\ncachanosky\OneDrive\Research\Working Papers\populism-sca"
 
 *| Packages
 ssc install schemepack, replace		// Plot schemes
@@ -51,7 +50,9 @@ mata mata mlib index
 *|------------------------------------------------------------------------------
 
 *| Load and prepare data
-import excel "data.xlsx", sheet("Data") firstrow clear
+global data = "https://github.com/ncachanosky/populism-sca/raw/main/data.xlsx"
+
+import excel $data, sheet("Data") firstrow clear
 tsset country_id year
 
 rename country_name		country
@@ -117,9 +118,9 @@ twoway	scatteri 80 2003  80 2015, bcolor(gray%25) recast(area) plotr(m(zero)) //
 		title($title)														 ///
 		ylabel(50(5)80, format(%9.0f)) xlabel(1985(4)2019)					 ///
 		xline(2003 2015, lpattern(solid))								     ///
-		legend(off)															 ///
+		legend(off)	nodraw													 ///
 		note("Source: The V-Dem Dataset")
-		graph export "V-Dem_ARG.png", replace
+		graph export "Figures/Fig_V-Dem_ARG.png", replace
 
 
 global title	= "V-Dem Liberal Democracy Index in Bolivia"
@@ -128,9 +129,9 @@ twoway	scatteri 80 2005  80 2019, bcolor(gray%25) recast(area) plotr(m(zero)) //
 		title($title)														 ///
 		xline(2005 2019, lpattern(solid))								     ///
 		ylabel(20(10)80, format(%9.0f)) xlabel(1985(4)2019)					 ///
-		legend(off)															 ///
+		legend(off)	nodraw													 ///
 		note("Source: The V-Dem Dataset")
-		graph export "V-Dem_BOL.png", replace
+		graph export "Figures/Fig_V-Dem_BOL.png", replace
 		
 
 global title	= "V-Dem Liberal Democracy Index in Ecuador"
@@ -138,10 +139,10 @@ twoway	scatteri 60 2006  60 2016, bcolor(gray%25) recast(area) plotr(m(zero)) //
 	 || line $y year if country_code=="ECU" & year>1984,					 ///
 		title($title)														 ///
 		xline(2006 2016, lpattern(solid))								     ///
-		xlabel(1985(4)2019)												 ///
-		legend(off) 														 ///
+		xlabel(1985(4)2019)													 ///
+		legend(off) nodraw													 ///
 		note("Source: The V-Dem Dataset")
-		graph export "V-Dem_ECU.png", replace
+		graph export "Figures/Fig_V-Dem_ECU.png", replace
 		
 		
 global title	= "V-Dem Liberal Democracy Index in Nicaragua"
@@ -150,9 +151,9 @@ twoway	scatteri 80 2006  80 2021, bcolor(gray%25) recast(area) plotr(m(zero)) //
 		title($title)														 ///
 		xline(2006, lpattern(solid))									     ///
 		xlabel(1985(4)2019) 												 ///
-		legend(off)															 ///
+		legend(off)	nodraw													 ///
 		note("Source: The V-Dem Dataset")
-		graph export "V-Dem_NIC.png", replace
+		graph export "Fig_V-Dem_NIC.png", replace
 		
 		
 global title	= "V-Dem Liberal Democracy Index in Venezuela"
@@ -161,9 +162,9 @@ twoway	scatteri 80 1998 80 2021, bcolor(gray%25) recast(area) plotr(m(zero))	 //
 		title($title)														 ///
 		xline(1998, lpattern(solid))									     ///
 		xlabel(1985(4)2019)													 ///
-		legend(off) 														 ///
+		legend(off) nodraw													 ///
 		note("Source: The V-Dem Dataset")
-		graph export "V-Dem_VEN.png", replace
+		graph export "Figures/Fig_V-Dem_VEN.png", replace
 
 
 *|==============================================================================
@@ -236,7 +237,7 @@ twoway bar 	ARG_effect year if id==2, color(gray%50) xline($treat_y) 		 ///
  
 	
 graph combine "ARG_synth" "ARG_effect", xcommon rows(2)	ysize(8)
-graph export ARG.png, replace
+graph export Figures/Fig_ARG.png, replace
 
 
 
@@ -315,7 +316,7 @@ twoway bar 	BOL_effect year if id==6, color(gray%50) xline($treat_y) 		 ///
  
 	
 graph combine "BOL_synth" "BOL_effect", xcommon rows(2)	ysize(8)
-graph export BOL.png, replace
+graph export Figures/Fig_BOL.png, replace
 
 
 
@@ -331,7 +332,7 @@ merge 1:1 t using data_avg
 drop _merge
 save data_avg, replace
 			 
-*| Ecuador 2007
+*| Ecuador
 *|------------------------------------------------------------------------------
 use data.dta, clear
 
@@ -396,7 +397,7 @@ twoway bar 	ECU_effect year if id==13, color(gray%50) xline($treat_y) 		 ///
  
 	
 graph combine "ECU_synth" "ECU_effect", xcommon rows(2)	ysize(8)	 
-graph export ECU.png, replace
+graph export Figures/Fig_ECU.png, replace
 
 
 keep if country_code == "ECU"
@@ -476,7 +477,7 @@ twoway bar 	NIC_effect year if id==21, color(gray%50) xline($treat_y) 		 ///
  
 	
 graph combine "NIC_synth" "NIC_effect", xcommon rows(2)	ysize(8)
-graph export NIC.png, replace	
+graph export Figures/Fig_NIC.png, replace	
 
 
 keep if country_code == "NIC"
@@ -557,7 +558,7 @@ twoway bar 	VEN_effect year if id==32, color(gray%50) xline($treat_y) 		 ///
  
 	
 graph combine "VEN_synth" "VEN_effect", xcommon rows(2)	ysize(8)	
-graph export VEN.png, replace
+graph export Figures/Fig_VEN.png, replace
 			 
 
 keep if country_code == "VEN"
@@ -574,6 +575,8 @@ save data_avg, replace
 *|==============================================================================
 *| AVERAGE PLOTS
 *|------------------------------------------------------------------------------
+use data_avg, clear
+
 gen VDEMy  = (ARG_VDEMy  + BOL_VDEMy  + ECU_VDEMy  + NIC_VDEMy  + VEN_VDEMy) /5
 gen synth  = (ARG_SCA    + BOL_SCA    + ECU_SCA    + NIC_SCA    + VEN_SCA)   /5
 gen EFFECT = (ARG_effect + BOL_effect + ECU_effect + NIC_effect + VEN_effect)/5
@@ -583,11 +586,11 @@ twoway line VDEMy t, lpattern(solid)										 ///
 	|| line synth t, lpattern(dash)  										 ///
 	   xline(0) xlabel(-10(2)10) legend(off)								 ///
 	   ytitle($ytitle)
-	   graph export avg_synth.png, replace
+	   graph export Figures/Fig_avg_synth.png, replace
 	   
 global ytitle = "Average synthetic effect"	   
 twoway bar 	EFFECT t, color(gray%50) xline(0) 								 ///
 	   yline(0, lpattern(solid))											 ///
 	   xlabel(-10(2)10)														 ///
 	   ytitle($ytitle)
-	   graph export avg_effect.png, replace
+	   graph export Figures/Fig_avg_effect.png, replace
