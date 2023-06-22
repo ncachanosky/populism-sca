@@ -14,6 +14,8 @@
 *|------------------------------------------------------------------------------
 
 *| Directory
+
+// Change to your file path
 cd "\Users\ncachanosky\OneDrive\Research\Working Papers\populism-sca"
 
 *| Packages
@@ -29,7 +31,7 @@ set scheme myUTEP
 
 *| Plot settings
 set scheme white_tableau
-graph set window fontface "Roboto condensed"
+graph set window fontface "Times New Roman"
 
 
 
@@ -81,8 +83,6 @@ drop v2jupoatck
 drop v2xnp_client
 drop v2xnp_pres
 
-
-
 label variable country		"Country"
 label variable country_code	"text_id"
 label variable id			"country id"
@@ -102,7 +102,6 @@ label variable WGI2			"WGI: Rule of Law"
 label variable WGI3			"WGI: Control of Corruption"
 label variable ICRG			"ICRG: Corruption"
 
-
 save data, replace
 
 
@@ -118,7 +117,7 @@ twoway	scatteri 80 2003  80 2015, bcolor(gray%25) recast(area) plotr(m(zero)) //
 		title($title)														 ///
 		ylabel(50(5)80, format(%9.0f)) xlabel(1985(4)2019)					 ///
 		xline(2003 2015, lpattern(solid))								     ///
-		legend(off)	nodraw													 ///
+		legend(off)															 ///
 		note("Source: The V-Dem Dataset")
 		graph export "Figures/Fig_V-Dem_ARG.png", replace
 
@@ -129,7 +128,7 @@ twoway	scatteri 80 2005  80 2019, bcolor(gray%25) recast(area) plotr(m(zero)) //
 		title($title)														 ///
 		xline(2005 2019, lpattern(solid))								     ///
 		ylabel(20(10)80, format(%9.0f)) xlabel(1985(4)2019)					 ///
-		legend(off)	nodraw													 ///
+		legend(off)															 ///
 		note("Source: The V-Dem Dataset")
 		graph export "Figures/Fig_V-Dem_BOL.png", replace
 		
@@ -140,7 +139,7 @@ twoway	scatteri 60 2006  60 2016, bcolor(gray%25) recast(area) plotr(m(zero)) //
 		title($title)														 ///
 		xline(2006 2016, lpattern(solid))								     ///
 		xlabel(1985(4)2019)													 ///
-		legend(off) nodraw													 ///
+		legend(off) 														 ///
 		note("Source: The V-Dem Dataset")
 		graph export "Figures/Fig_V-Dem_ECU.png", replace
 		
@@ -151,7 +150,7 @@ twoway	scatteri 80 2006  80 2021, bcolor(gray%25) recast(area) plotr(m(zero)) //
 		title($title)														 ///
 		xline(2006, lpattern(solid))									     ///
 		xlabel(1985(4)2019) 												 ///
-		legend(off)	nodraw													 ///
+		legend(off)															 ///
 		note("Source: The V-Dem Dataset")
 		graph export "Fig_V-Dem_NIC.png", replace
 		
@@ -162,7 +161,7 @@ twoway	scatteri 80 1998 80 2021, bcolor(gray%25) recast(area) plotr(m(zero))	 //
 		title($title)														 ///
 		xline(1998, lpattern(solid))									     ///
 		xlabel(1985(4)2019)													 ///
-		legend(off) nodraw													 ///
+		legend(off) 														 ///
 		note("Source: The V-Dem Dataset")
 		graph export "Figures/Fig_V-Dem_VEN.png", replace
 
@@ -227,18 +226,19 @@ twoway line VDEMy	   year if id==2, lpattern(solid) 						 ///
 	   xlabel(1990(5)2015) 													 ///
 	   ytitle($ytitle1) 				 									 ///
 	   legend(label(1 $label1) label(2 $label2) position(6) rows(1)) nodraw
-	   graph save ARG_synth, replace
+	   graph rename ARG_synth, replace
+
 	   
 twoway bar 	ARG_effect year if id==2, color(gray%50) xline($treat_y) 		 ///
 	   yline(0, lpattern(solid)) 											 ///
 	   xlabel(1990(5)2015)													 ///
 	   ytitle($ytitle2) nodraw
-	   graph save ARG_effect, replace
- 
-	
-graph combine "ARG_synth" "ARG_effect", xcommon rows(2)	ysize(8)
-graph export Figures/Fig_ARG.png, replace
+	   graph rename ARG_effect, replace
 
+ 	
+graph combine ARG_synth ARG_effect, xcommon rows(2)	ysize(8)
+graph export Figures/Fig_ARG.png, replace
+graph drop _all
 
 
 keep if country_code == "ARG"
@@ -306,18 +306,18 @@ twoway line VDEMy	   year if id==6, lpattern(solid) 						 ///
 	   xlabel(1990(5)2015) 													 ///
 	   ytitle($ytitle1) 				 									 ///
 	   legend(label(1 $label1) label(2 $label2) position(6) rows(1)) nodraw
-	   graph save BOL_synth, replace
+	   graph rename BOL_synth, replace
 	   
 twoway bar 	BOL_effect year if id==6, color(gray%50) xline($treat_y) 		 ///
 	   yline(0, lpattern(solid))											 ///
 	   xlabel(1990(5)2015)													 ///
 	   ytitle($ytitle2) nodraw
-	   graph save BOL_effect, replace
+	   graph rename BOL_effect, replace
  
 	
-graph combine "BOL_synth" "BOL_effect", xcommon rows(2)	ysize(8)
+graph combine BOL_synth BOL_effect, xcommon rows(2)	ysize(8)
 graph export Figures/Fig_BOL.png, replace
-
+graph drop _all
 
 
 keep if country_code == "BOL"
@@ -387,17 +387,18 @@ twoway line VDEMy	   year if id==13, lpattern(solid) 						 ///
 	   xlabel(1990(5)2015) 													 ///
 	   ytitle($ytitle1) 				 									 ///
 	   legend(label(1 $label1) label(2 $label2) position(6) rows(1)) nodraw
-	   graph save ECU_synth, replace
+	   graph rename ECU_synth, replace
 	   
 twoway bar 	ECU_effect year if id==13, color(gray%50) xline($treat_y) 		 ///
 	   yline(0, lpattern(solid))											 ///
 	   xlabel(1990(5)2015)													 ///
 	   ytitle($ytitle2) nodraw
-	   graph save ECU_effect, replace
+	   graph rename ECU_effect, replace
  
 	
-graph combine "ECU_synth" "ECU_effect", xcommon rows(2)	ysize(8)	 
+graph combine ECU_synth ECU_effect, xcommon rows(2)	ysize(8)	 
 graph export Figures/Fig_ECU.png, replace
+graph drop _all
 
 
 keep if country_code == "ECU"
@@ -411,6 +412,7 @@ generate t = _n - 11, before(ECU_year)
 merge 1:1 t using data_avg
 drop _merge
 save data_avg, replace
+
 
 *| Nicaragua
 *|------------------------------------------------------------------------------
@@ -467,17 +469,18 @@ twoway line VDEMy	   year if id==21, lpattern(solid) 						 ///
 	   xlabel(1995(5)2015) 													 ///
 	   ytitle($ytitle1) 				 									 ///
 	   legend(label(1 $label1) label(2 $label2) position(6) rows(1)) nodraw
-	   graph save NIC_synth, replace
+	   graph rename NIC_synth, replace
 	   
 twoway bar 	NIC_effect year if id==21, color(gray%50) xline($treat_y) 		 ///
 	   yline(0, lpattern(solid))											 ///
 	   xlabel(1995(5)2015)													 ///
 	   ytitle($ytitle2) nodraw
-	   graph save NIC_effect, replace
+	   graph rename NIC_effect, replace
  
 	
-graph combine "NIC_synth" "NIC_effect", xcommon rows(2)	ysize(8)
+graph combine NIC_synth NIC_effect, xcommon rows(2)	ysize(8)
 graph export Figures/Fig_NIC.png, replace	
+graph drop _all
 
 
 keep if country_code == "NIC"
@@ -548,17 +551,18 @@ twoway line VDEMy	   year if id==32, lpattern(solid) 						 ///
 	   xlabel(1985(5)2010) 													 ///
 	   ytitle($ytitle1) 				 									 ///
 	   legend(label(1 $label1) label(2 $label2) position(6) rows(1)) nodraw
-	   graph save VEN_synth, replace
+	   graph rename VEN_synth, replace
 	   
 twoway bar 	VEN_effect year if id==32, color(gray%50) xline($treat_y) 		 ///
 	   yline(0, lpattern(solid))											 ///
 	   xlabel(1985(5)2010)													 ///
-	   ytitle($ytitle2) nodraw
-	   graph save VEN_effect, replace
+	   ytitle($ytitle2) 
+	   graph rename VEN_effect, replace
  
 	
-graph combine "VEN_synth" "VEN_effect", xcommon rows(2)	ysize(8)	
+graph combine VEN_synth VEN_effect, xcommon rows(2)	ysize(8)	
 graph export Figures/Fig_VEN.png, replace
+graph drop _all
 			 
 
 keep if country_code == "VEN"
@@ -584,13 +588,18 @@ gen EFFECT = (ARG_effect + BOL_effect + ECU_effect + NIC_effect + VEN_effect)/5
 global ytitle = "Average V-DEM: Liberal Democracy Index (0-100)"
 twoway line VDEMy t, lpattern(solid)										 ///
 	|| line synth t, lpattern(dash)  										 ///
-	   xline(0) xlabel(-10(2)10) legend(off)								 ///
-	   ytitle($ytitle)
-	   graph export Figures/Fig_avg_synth.png, replace
+	   xline(0) xlabel(-10(2)10) ylabel(30(5)60) legend(off)				 ///
+	   ytitle($ytitle) 
+	   graph rename avg_synth, replace
 	   
 global ytitle = "Average synthetic effect"	   
 twoway bar 	EFFECT t, color(gray%50) xline(0) 								 ///
 	   yline(0, lpattern(solid))											 ///
-	   xlabel(-10(2)10)														 ///
+	   xlabel(-10(2)10)	ylabel(-30(5)10)									 ///
 	   ytitle($ytitle)
-	   graph export Figures/Fig_avg_effect.png, replace
+	   graph rename avg_effect, replace
+	   
+
+graph combine avg_synth avg_effect, xcommon rows(2)	ysize(8)	
+graph export Figures/Fig_average.png, replace
+graph drop _all
