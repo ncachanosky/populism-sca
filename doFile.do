@@ -190,7 +190,7 @@ global convergence	 = "nested allopt technique(nr)"
 global predictors	 = "WGI1 WGI2 VDEM1 VDEM2 VDEM5 EFW"
 global pre_treatment = "VDEMy(1994) VDEMy(1997) VDEMy(1998) VDEMy(2002)"
 global treat_y       = "2003"
-global x_axis		 = "1993(1)2015"
+global x_axis		 = "1993(1)2013"
 
 
 /*
@@ -268,7 +268,7 @@ parallel numprocessors	// 8 processors
 parallel initialize 6
 
 global convergence	 = "nested allopt technique(nr)"
-global predictors    = "WGI1 WGI2 WGI3 VDEM1 VDEM3 VDEM4 EFW"
+global predictors    = "VDEM6 polity2 VDEM1 ICRG"
 global pre_treatment = "VDEMy(1998) VDEMy(2000) VDEMy(2002) VDEMy(2004)"
 global treat_y       = "2005"
 global x_axis		 = "1995(1)2015"
@@ -349,7 +349,7 @@ parallel numprocessors	// 8 processors
 parallel initialize 6
 
 global convergence	 = "nested allopt technique(nr)"
-global predictors    = "WGI1 WGI2 VDEM3 VDEM4 VDEM6 EFW"
+global predictors    = "EFW polity2 VDEM4 ICRG"
 global pre_treatment = "VDEMy(1997) VDEMy(2002) VDEMy(2003) VDEMy(2006)"
 global treat_y       = "2007"
 global x_axis		 = "1997(1)2017"
@@ -431,7 +431,7 @@ parallel numprocessors	// 8 processors
 parallel initialize 6
 
 global convergence	 = "nested allopt technique(nr)"
-global predictors    = "WGI1 WGI2 WGI3 VDEM1 VDEM2 VDEM3 EFW"
+global predictors    = "VDEM2 VDEM4 WGI1 polity2 WGI3"
 global pre_treatment = "VDEMy(1996) VDEMy(2001) VDEMy(2002) VDEMy(2004)"
 global treat_y       = "2006"
 global x_axis		 = "1996(1)2016"
@@ -512,7 +512,7 @@ parallel numprocessors	// 8 processors
 parallel initialize 6
 
 global convergence	 = "nested allopt technique(nr)"
-global predictors    = "WGI1 WGI2 WGI3 VDEM1 VDEM2 VDEM3 EFW"
+global predictors    = "WGI1 VDEM2 VDEM3 polity2 EFW ICRG"
 global pre_treatment = "VDEMy(1988) VDEMy(1991) VDEMy(1994) VDEMy(1997)"
 global treat_y       = "1998"
 global x_axis		 = "1988(1)2008"
