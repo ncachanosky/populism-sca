@@ -165,7 +165,8 @@ twoway	scatteri 80 1998 80 2021, bcolor(gray%25) recast(area) plotr(m(zero))	 //
 		note("Source: The V-Dem Dataset")
 		graph export "Figures/Fig_V-Dem_VEN.png", replace
 
-
+	
+		
 *|==============================================================================
 *| SCA ESTIMATIONS
 *|------------------------------------------------------------------------------
@@ -583,7 +584,8 @@ use data_avg, clear
 
 gen VDEMy  = (ARG_VDEMy  + BOL_VDEMy  + ECU_VDEMy  + NIC_VDEMy  + VEN_VDEMy) /5
 gen synth  = (ARG_SCA    + BOL_SCA    + ECU_SCA    + NIC_SCA    + VEN_SCA)   /5
-gen EFFECT = (ARG_effect + BOL_effect + ECU_effect + NIC_effect + VEN_effect)/5
+gen EFFECT = VDEMy - synth
+
 
 global ytitle = "Average V-DEM: Liberal Democracy Index (0-100)"
 twoway line VDEMy t, lpattern(solid)										 ///
