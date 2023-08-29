@@ -66,6 +66,8 @@ rename voiceaccount			WGI1
 rename ruleoflaw			WGI2
 rename controlofcorruption 	WGI3
 rename icrgcorruption		ICRG
+rename fh_pr				FH_PR
+rename fh_cl				FH_CL
 
 gen VDEMy 	= 100*v2x_libdem
 gen VDEM1	= 100*v2x_polyarchy
@@ -101,6 +103,8 @@ label variable WGI1			"WGI: Voive and Accountability"
 label variable WGI2			"WGI: Rule of Law"
 label variable WGI3			"WGI: Control of Corruption"
 label variable ICRG			"ICRG: Corruption"
+label variable FH_PR		"Freedom House: Political Rights"
+label variable FH_CL		"Freedom House: Civil Liberties"
 
 save data, replace
 
@@ -108,7 +112,6 @@ save data, replace
 *|==============================================================================
 *| PLOTS
 *|------------------------------------------------------------------------------
-// Inflation in Ecuador vs USA
 global y 		= "VDEMy"
 
 global title	= "V-Dem Liberal Democracy Index in Argentina"
@@ -269,7 +272,8 @@ parallel numprocessors	// 8 processors
 parallel initialize 6
 
 global convergence	 = "nested allopt technique(nr)"
-global predictors    = "VDEM6 polity2 VDEM1 ICRG"
+*global predictors    = "VDEM6 polity2 VDEM1 ICRG FH_PR FH_CL"
+global predictors    = "VDEM6 polity2 VDEM1 ICRG FH_PR FH_CL"
 global pre_treatment = "VDEMy(1998) VDEMy(2000) VDEMy(2002) VDEMy(2004)"
 global treat_y       = "2005"
 global x_axis		 = "1995(1)2015"
@@ -350,7 +354,8 @@ parallel numprocessors	// 8 processors
 parallel initialize 6
 
 global convergence	 = "nested allopt technique(nr)"
-global predictors    = "EFW polity2 VDEM4 ICRG"
+*global predictors    = "VDEM4 EFW polity2 ICRG FH_PR FH_CL"
+global predictors    = "VDEM4 VDEM5 EFW polity2 ICRG FH_PR FH_CL"
 global pre_treatment = "VDEMy(1997) VDEMy(2002) VDEMy(2003) VDEMy(2006)"
 global treat_y       = "2007"
 global x_axis		 = "1997(1)2017"
@@ -432,7 +437,8 @@ parallel numprocessors	// 8 processors
 parallel initialize 6
 
 global convergence	 = "nested allopt technique(nr)"
-global predictors    = "VDEM2 VDEM4 WGI1 polity2 WGI3"
+*global predictors    = "VDEM2 VDEM4 WGI1 polity2 WGI3"
+global predictors    = "VDEM2 VDEM4 WGI1 polity2 FH_PR"
 global pre_treatment = "VDEMy(1996) VDEMy(2001) VDEMy(2002) VDEMy(2004)"
 global treat_y       = "2006"
 global x_axis		 = "1996(1)2016"
@@ -514,6 +520,7 @@ parallel initialize 6
 
 global convergence	 = "nested allopt technique(nr)"
 global predictors    = "WGI1 VDEM2 VDEM3 polity2 EFW ICRG"
+global predictors    = "WGI1 VDEM2 VDEM3 polity2 EFW ICRG FH_PR FH_CL"
 global pre_treatment = "VDEMy(1988) VDEMy(1991) VDEMy(1994) VDEMy(1997)"
 global treat_y       = "1998"
 global x_axis		 = "1988(1)2008"
