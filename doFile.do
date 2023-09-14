@@ -66,14 +66,12 @@ rename voiceaccount			WGI1
 rename ruleoflaw			WGI2
 rename controlofcorruption 	WGI3
 rename icrgcorruption		ICRG
-rename fh_pr				FH_PR
-rename fh_cl				FH_CL
 
 gen VDEMy 	= 100*v2x_libdem
 gen VDEM1	= 100*v2x_polyarchy
 gen VDEM2	= 100*v2x_freexp_altinf
-gen VDEM3	= 100*v2excrptps
-gen VDEM4	= 100*v2jupoatck
+gen VDEM3	= 25*v2excrptps_osp
+gen VDEM4	= 25*v2jupoatck_osp
 gen VDEM5	= 100*v2xnp_client
 gen VDEM6	= 100*v2xnp_pres
 
@@ -191,7 +189,7 @@ parallel numprocessors	// 8 processors
 parallel initialize 6
 
 global convergence	 = "nested allopt technique(nr)"
-global predictors	 = "WGI1 WGI2 VDEM1 VDEM2 VDEM5 EFW"
+global predictors	 = "VDEM2 VDEM3 VDEM5 WGI1 FH_PR FH_CL"
 global pre_treatment = "VDEMy(1994) VDEMy(1997) VDEMy(1998) VDEMy(2002)"
 global treat_y       = "2003"
 global x_axis		 = "1993(1)2013"
@@ -203,7 +201,7 @@ synth VDEMy $predictors $pre_treatment, trunit(2) trperiod($treat_y)		 ///
 	  keep(resout_ARG) replace fig
 */
     
-synth_runner VDEMy $prediction $pre_treatment,								 ///
+synth_runner VDEMy $predictors $pre_treatment,								 ///
 			 trunit(2) trperiod($treat_y)			 						 ///
 			 gen_vars parallel				 								 ///
 			 synthsettings(unitnames(country))								 ///
@@ -272,8 +270,7 @@ parallel numprocessors	// 8 processors
 parallel initialize 6
 
 global convergence	 = "nested allopt technique(nr)"
-*global predictors    = "VDEM6 polity2 VDEM1 ICRG FH_PR FH_CL"
-global predictors    = "VDEM6 polity2 VDEM1 ICRG FH_PR FH_CL"
+global predictors    = "VDEM2 VDEM5 WGI1 WGI3 ICRG FH_PR FH_CL"
 global pre_treatment = "VDEMy(1998) VDEMy(2000) VDEMy(2002) VDEMy(2004)"
 global treat_y       = "2005"
 global x_axis		 = "1995(1)2015"
@@ -284,7 +281,8 @@ synth VDEMy $predictors $pre_treatment, trunit(6) trperiod($treat_y)	 ///
 	  keep(resout_BOL) replace fig
 */	
     
-synth_runner VDEMy $prediction $pre_treatment,								 ///
+
+synth_runner VDEMy $predictors $pre_treatment,								 ///
 			 trunit(6) trperiod($treat_y)			 						 ///
 			 gen_vars parallel				 								 ///
 			 synthsettings(unitnames(country))								 ///
@@ -354,8 +352,7 @@ parallel numprocessors	// 8 processors
 parallel initialize 6
 
 global convergence	 = "nested allopt technique(nr)"
-*global predictors    = "VDEM4 EFW polity2 ICRG FH_PR FH_CL"
-global predictors    = "VDEM4 VDEM5 EFW polity2 ICRG FH_PR FH_CL"
+global predictors    = "VDEM2 VDEM3 VDEM4 VDEM5 VDEM6 ICRG polity2 FH_PR"
 global pre_treatment = "VDEMy(1997) VDEMy(2002) VDEMy(2003) VDEMy(2006)"
 global treat_y       = "2007"
 global x_axis		 = "1997(1)2017"
@@ -366,7 +363,7 @@ synth VDEMy $predictors $pre_treatment, trunit(13) trperiod($treat_y)	 ///
 	  keep(resout_ECU) replace fig
 */
     
-synth_runner VDEMy $prediction $pre_treatment,								 ///
+synth_runner VDEMy $predictors $pre_treatment,								 ///
 			 trunit(13) trperiod($treat_y)			 						 ///
 			 gen_vars parallel				 								 ///
 			 synthsettings(unitnames(country))								 ///
@@ -437,8 +434,7 @@ parallel numprocessors	// 8 processors
 parallel initialize 6
 
 global convergence	 = "nested allopt technique(nr)"
-*global predictors    = "VDEM2 VDEM4 WGI1 polity2 WGI3"
-global predictors    = "VDEM2 VDEM4 WGI1 polity2 FH_PR"
+global predictors    = "VDEM1 VDEM2 VDEM4 VDEM5 VDEM6 WGI1 ICRG FH_CL"
 global pre_treatment = "VDEMy(1996) VDEMy(2001) VDEMy(2002) VDEMy(2004)"
 global treat_y       = "2006"
 global x_axis		 = "1996(1)2016"
@@ -449,7 +445,7 @@ synth VDEMy $predictors $pre_treatment, trunit(21) trperiod($treat_y)	 ///
 	  keep(resout_ECU) replace fig
 */
     
-synth_runner VDEMy $prediction $pre_treatment,								 ///
+synth_runner VDEMy $predictors $pre_treatment,								 ///
 			 trunit(21) trperiod($treat_y)			 						 ///
 			 gen_vars parallel				 								 ///
 			 synthsettings(unitnames(country))								 ///
@@ -519,8 +515,7 @@ parallel numprocessors	// 8 processors
 parallel initialize 6
 
 global convergence	 = "nested allopt technique(nr)"
-global predictors    = "WGI1 VDEM2 VDEM3 polity2 EFW ICRG"
-global predictors    = "WGI1 VDEM2 VDEM3 polity2 EFW ICRG FH_PR FH_CL"
+global predictors    = "VDEM6 WGI1 WGI3 ICRG polity2 FH_PR FH_CL"
 global pre_treatment = "VDEMy(1988) VDEMy(1991) VDEMy(1994) VDEMy(1997)"
 global treat_y       = "1998"
 global x_axis		 = "1988(1)2008"
@@ -528,10 +523,10 @@ global x_axis		 = "1988(1)2008"
 /*
 synth VDEMy $predictors $pre_treatment, trunit(32) trperiod($treat_y)	 ///
 	  unitnames(country) resultsperiod($x_axis)							 ///
-	  keep(resout_ECU) replace fig
+	  keep(resout_ECU) replace
 */
     
-synth_runner VDEMy $prediction $pre_treatment,								 ///
+synth_runner VDEMy $predictors $pre_treatment,								 ///
 			 trunit(32) trperiod($treat_y)			 						 ///
 			 gen_vars parallel				 								 ///
 			 synthsettings(unitnames(country))								 ///
