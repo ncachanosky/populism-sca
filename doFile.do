@@ -9,11 +9,11 @@
 *| This version: dd-mmm-yyyy
 *|==============================================================================
 
-*|==============================================================================
-*| INSTALL PACKAGES AND DEFINE SETTINGS
-*|------------------------------------------------------------------------------
+***|============================================================================
+**#| INSTALL PACKAGES AND DEFINE SETTINGS
+***|----------------------------------------------------------------------------
 
-*| Directory
+***| Directory
 
 // Change to your file path
 cd "\Users\ncachanosky\OneDrive\Research\Working Papers\populism-sca"
@@ -35,8 +35,8 @@ graph set window fontface "Times New Roman"
 
 
 
-*| Synthetic Control / synth_runner / parallen
-*|------------------------------------------------------------------------------
+***| Synthetic Control / synth_runner / parallen
+***|----------------------------------------------------------------------------
 ssc install synth		, all replace
 
 cap ado uninstall synth_runner //in-case already installed
@@ -47,9 +47,9 @@ mata mata mlib index
 
 
 
-*|==============================================================================
-*| DOWNLOAD DATA
-*|------------------------------------------------------------------------------
+***|============================================================================
+**#| DOWNLOAD DATA
+***|----------------------------------------------------------------------------
 
 *| Load and prepare data
 global data = "https://github.com/ncachanosky/populism-sca/raw/main/data.xlsx"
@@ -106,74 +106,13 @@ label variable FH_CL		"Freedom House: Civil Liberties"
 
 save data, replace
 
-
-*|==============================================================================
-*| PLOTS
-*|------------------------------------------------------------------------------
-global y 		= "VDEMy"
-
-global title	= "V-Dem Liberal Democracy Index in Argentina"
-twoway	scatteri 80 2003  80 2015, bcolor(gray%25) recast(area) plotr(m(zero)) ///
-     || line $y year if country_code=="ARG" & year>1984,					 ///
-		title($title)														 ///
-		ylabel(50(5)80, format(%9.0f)) xlabel(1985(4)2019)					 ///
-		xline(2003 2015, lpattern(solid))								     ///
-		legend(off)															 ///
-		note("Source: The V-Dem Dataset")
-		graph export "Figures/Fig_V-Dem_ARG.png", replace
-
-
-global title	= "V-Dem Liberal Democracy Index in Bolivia"
-twoway	scatteri 80 2005  80 2019, bcolor(gray%25) recast(area) plotr(m(zero)) ///
-	 || line $y year if country_code=="BOL" & year>1984,					 ///
-		title($title)														 ///
-		xline(2005 2019, lpattern(solid))								     ///
-		ylabel(20(10)80, format(%9.0f)) xlabel(1985(4)2019)					 ///
-		legend(off)															 ///
-		note("Source: The V-Dem Dataset")
-		graph export "Figures/Fig_V-Dem_BOL.png", replace
 		
+***|============================================================================
+**#| SCA ESTIMATIONS
+***|----------------------------------------------------------------------------
 
-global title	= "V-Dem Liberal Democracy Index in Ecuador"
-twoway	scatteri 60 2006  60 2016, bcolor(gray%25) recast(area) plotr(m(zero)) ///
-	 || line $y year if country_code=="ECU" & year>1984,					 ///
-		title($title)														 ///
-		xline(2006 2016, lpattern(solid))								     ///
-		xlabel(1985(4)2019)													 ///
-		legend(off) 														 ///
-		note("Source: The V-Dem Dataset")
-		graph export "Figures/Fig_V-Dem_ECU.png", replace
-		
-		
-global title	= "V-Dem Liberal Democracy Index in Nicaragua"
-twoway	scatteri 80 2006  80 2021, bcolor(gray%25) recast(area) plotr(m(zero)) ///
-	 || line $y year if country_code=="NIC" & year>1984,					 ///
-		title($title)														 ///
-		xline(2006, lpattern(solid))									     ///
-		xlabel(1985(4)2019) 												 ///
-		legend(off)															 ///
-		note("Source: The V-Dem Dataset")
-		graph export "Figures/Fig_V-Dem_NIC.png", replace
-		
-		
-global title	= "V-Dem Liberal Democracy Index in Venezuela"
-twoway	scatteri 80 1998 80 2021, bcolor(gray%25) recast(area) plotr(m(zero))	 ///
-	 || line $y year if country_code=="VEN",								 ///
-		title($title)														 ///
-		xline(1998, lpattern(solid))									     ///
-		xlabel(1985(4)2019)													 ///
-		legend(off) 														 ///
-		note("Source: The V-Dem Dataset")
-		graph export "Figures/Fig_V-Dem_VEN.png", replace
-
-	
-		
-*|==============================================================================
-*| SCA ESTIMATIONS
-*|------------------------------------------------------------------------------
-
-*| Argentina
-*|------------------------------------------------------------------------------
+**#| Argentina
+***|----------------------------------------------------------------------------
 use data.dta, clear
 
 drop if country_code=="BOL"	
@@ -197,8 +136,7 @@ global x_axis		 = "1993(1)2013"
 
 /*
 synth VDEMy $predictors $pre_treatment, trunit(2) trperiod($treat_y)		 ///
-	  unitnames(country) resultsperiod($x_axis)								 ///
-	  keep(resout_ARG) replace fig
+	  unitnames(country) resultsperiod($x_axis)
 */
     
 synth_runner VDEMy $predictors $pre_treatment,								 ///
@@ -253,8 +191,8 @@ generate t = _n - 11, before(ARG_year)
 save data_avg, replace
 
 
-*| Bolivia
-*|------------------------------------------------------------------------------
+**#| Bolivia
+***|----------------------------------------------------------------------------
 use data.dta, clear
 
 drop if country_code=="ARG"	
@@ -277,8 +215,7 @@ global x_axis		 = "1995(1)2015"
 
 /*
 synth VDEMy $predictors $pre_treatment, trunit(6) trperiod($treat_y)	 ///
-	  unitnames(country) resultsperiod($x_axis)							 ///
-	  keep(resout_BOL) replace fig
+	  unitnames(country) resultsperiod($x_axis)	
 */	
     
 
@@ -335,8 +272,8 @@ merge 1:1 t using data_avg
 drop _merge
 save data_avg, replace
 			 
-*| Ecuador
-*|------------------------------------------------------------------------------
+**#| Ecuador
+***|----------------------------------------------------------------------------
 use data.dta, clear
 
 drop if country_code=="ARG"	
@@ -359,8 +296,7 @@ global x_axis		 = "1997(1)2017"
 
 /*
 synth VDEMy $predictors $pre_treatment, trunit(13) trperiod($treat_y)	 ///
-	  unitnames(country) resultsperiod($x_axis)							 ///
-	  keep(resout_ECU) replace fig
+	  unitnames(country) resultsperiod($x_axis)	
 */
     
 synth_runner VDEMy $predictors $pre_treatment,								 ///
@@ -417,8 +353,8 @@ drop _merge
 save data_avg, replace
 
 
-*| Nicaragua
-*|------------------------------------------------------------------------------
+**#| Nicaragua
+***|----------------------------------------------------------------------------
 use data.dta, clear
 
 drop if country_code=="ARG"	
@@ -441,8 +377,7 @@ global x_axis		 = "1996(1)2016"
 
 /*
 synth VDEMy $predictors $pre_treatment, trunit(21) trperiod($treat_y)	 ///
-	  unitnames(country) resultsperiod($x_axis)							 ///
-	  keep(resout_ECU) replace fig
+	  unitnames(country) resultsperiod($x_axis)	
 */
     
 synth_runner VDEMy $predictors $pre_treatment,								 ///
@@ -498,8 +433,8 @@ drop _merge
 save data_avg, replace
 
 
-*| Venezuela
-*|------------------------------------------------------------------------------
+**#| Venezuela
+***|----------------------------------------------------------------------------
 use data.dta, clear
 
 drop if country_code=="ARG"	
@@ -522,8 +457,7 @@ global x_axis		 = "1988(1)2008"
 
 /*
 synth VDEMy $predictors $pre_treatment, trunit(32) trperiod($treat_y)	 ///
-	  unitnames(country) resultsperiod($x_axis)							 ///
-	  keep(resout_ECU) replace
+	  unitnames(country) resultsperiod($x_axis)	
 */
     
 synth_runner VDEMy $predictors $pre_treatment,								 ///
@@ -579,9 +513,9 @@ merge 1:1 t using data_avg
 drop _merge
 save data_avg, replace
 
-*|==============================================================================
-*| AVERAGE PLOTS
-*|------------------------------------------------------------------------------
+***|============================================================================
+**#| AVERAGE PLOTS
+***|----------------------------------------------------------------------------
 use data_avg, clear
 
 gen VDEMy  = (ARG_VDEMy  + BOL_VDEMy  + ECU_VDEMy  + NIC_VDEMy  + VEN_VDEMy) /5
@@ -607,3 +541,5 @@ twoway bar 	EFFECT t, color(gray%50) xline(0) 								 ///
 graph combine avg_synth avg_effect, xcommon rows(2)	ysize(8)	
 graph export Figures/Fig_average.png, replace
 graph drop _all
+
+help graph
