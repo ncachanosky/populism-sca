@@ -121,7 +121,7 @@ drop if country_code=="NIC"
 drop if country_code=="VEN"
 
 drop if year < 1993
-drop if year > 2013
+drop if year > 2012
 
 
 parallel numprocessors	// 8 processors
@@ -131,7 +131,7 @@ global convergence	 = "nested allopt technique(nr)"
 global predictors	 = "VDEM2 VDEM3 VDEM5 WGI1 FH_PR FH_CL"
 global pre_treatment = "VDEMy(1994) VDEMy(1997) VDEMy(1998) VDEMy(2002)"
 global treat_y       = "2003"
-global x_axis		 = "1993(1)2013"
+global x_axis		 = "1993(1)2012"
 
 
 /*
@@ -162,16 +162,16 @@ global label1	= "Argentina"
 global label2	= "Synthetic Argentina"
 
 twoway line VDEMy	   year if id==2, lpattern(solid) 						 ///
-	|| line ARG_SCA    year if id==2, lpattern(dash)  xline($treat_y)		 ///
-	   xlabel(1990(5)2015) 													 ///
+	|| line ARG_SCA    year if id==2, lpattern(dash)  xline(2002)			 ///
+	   xlabel(1993(5)2012) 													 ///
 	   ytitle($ytitle1) 				 									 ///
 	   legend(label(1 $label1) label(2 $label2) position(6) rows(1)) nodraw
 	   graph rename ARG_synth, replace
 
 	   
-twoway bar 	ARG_effect year if id==2, color(gray%50) xline($treat_y) 		 ///
+twoway bar 	ARG_effect year if id==2, color(gray%50) xline(2002) 			 ///
 	   yline(0, lpattern(solid)) 											 ///
-	   xlabel(1990(5)2015)													 ///
+	   xlabel(1993(5)2012)													 ///
 	   ytitle($ytitle2) nodraw
 	   graph rename ARG_effect, replace
 
@@ -201,7 +201,7 @@ drop if country_code=="NIC"
 drop if country_code=="VEN"
 
 drop if year < 1995
-drop if year > 2015
+drop if year > 2014
 
 
 parallel numprocessors	// 8 processors
@@ -211,7 +211,7 @@ global convergence	 = "nested allopt technique(nr)"
 global predictors    = "VDEM2 VDEM5 WGI1 WGI3 ICRG FH_PR FH_CL"
 global pre_treatment = "VDEMy(1998) VDEMy(2000) VDEMy(2002) VDEMy(2004)"
 global treat_y       = "2005"
-global x_axis		 = "1995(1)2015"
+global x_axis		 = "1995(1)2014"
 
 /*
 synth VDEMy $predictors $pre_treatment, trunit(6) trperiod($treat_y)	 ///
@@ -242,15 +242,15 @@ global label1	= "Bolivia"
 global label2	= "Synthetic Bolivia"
 
 twoway line VDEMy	   year if id==6, lpattern(solid) 						 ///
-	|| line BOL_SCA    year if id==6, lpattern(dash)  xline($treat_y)		 ///
-	   xlabel(1990(5)2015) 													 ///
+	|| line BOL_SCA    year if id==6, lpattern(dash)  xline(2004)			 ///
+	   xlabel(1995(5)2014) 													 ///
 	   ytitle($ytitle1) 				 									 ///
 	   legend(label(1 $label1) label(2 $label2) position(6) rows(1)) nodraw
 	   graph rename BOL_synth, replace
 	   
-twoway bar 	BOL_effect year if id==6, color(gray%50) xline($treat_y) 		 ///
+twoway bar 	BOL_effect year if id==6, color(gray%50) xline(2004) 			 ///
 	   yline(0, lpattern(solid))											 ///
-	   xlabel(1990(5)2015)													 ///
+	   xlabel(1995(5)2014)													 ///
 	   ytitle($ytitle2) nodraw
 	   graph rename BOL_effect, replace
  
@@ -271,7 +271,8 @@ generate t = _n - 11, before(BOL_year)
 merge 1:1 t using data_avg
 drop _merge
 save data_avg, replace
-			 
+			
+			
 **#| Ecuador
 ***|----------------------------------------------------------------------------
 use data.dta, clear
@@ -282,7 +283,7 @@ drop if country_code=="NIC"
 drop if country_code=="VEN"
 
 drop if year < 1997
-drop if year > 2017
+drop if year > 2016
 
 
 parallel numprocessors	// 8 processors
@@ -292,7 +293,7 @@ global convergence	 = "nested allopt technique(nr)"
 global predictors    = "VDEM2 VDEM3 VDEM4 VDEM5 VDEM6 ICRG polity2 FH_PR"
 global pre_treatment = "VDEMy(1997) VDEMy(2002) VDEMy(2003) VDEMy(2006)"
 global treat_y       = "2007"
-global x_axis		 = "1997(1)2017"
+global x_axis		 = "1997(1)2016"
 
 /*
 synth VDEMy $predictors $pre_treatment, trunit(13) trperiod($treat_y)	 ///
@@ -322,15 +323,15 @@ global label1	= "Ecuador"
 global label2	= "Synthetic Ecuador"
 
 twoway line VDEMy	   year if id==13, lpattern(solid) 						 ///
-	|| line ECU_SCA    year if id==13, lpattern(dash)  xline($treat_y)		 ///
-	   xlabel(1990(5)2015) 													 ///
+	|| line ECU_SCA    year if id==13, lpattern(dash)  xline(2006)			 ///
+	   xlabel(1997(5)2016) 													 ///
 	   ytitle($ytitle1) 				 									 ///
 	   legend(label(1 $label1) label(2 $label2) position(6) rows(1)) nodraw
 	   graph rename ECU_synth, replace
 	   
-twoway bar 	ECU_effect year if id==13, color(gray%50) xline($treat_y) 		 ///
+twoway bar 	ECU_effect year if id==13, color(gray%50) xline(2006)	 		 ///
 	   yline(0, lpattern(solid))											 ///
-	   xlabel(1990(5)2015)													 ///
+	   xlabel(1997(5)2016)													 ///
 	   ytitle($ytitle2) nodraw
 	   graph rename ECU_effect, replace
  
@@ -363,7 +364,7 @@ drop if country_code=="ECU"
 drop if country_code=="VEN"
 
 drop if year < 1996
-drop if year > 2016
+drop if year > 2015
 
 
 parallel numprocessors	// 8 processors
@@ -373,7 +374,7 @@ global convergence	 = "nested allopt technique(nr)"
 global predictors    = "VDEM1 VDEM2 VDEM4 VDEM5 VDEM6 WGI1 ICRG FH_CL"
 global pre_treatment = "VDEMy(1996) VDEMy(2001) VDEMy(2002) VDEMy(2004)"
 global treat_y       = "2006"
-global x_axis		 = "1996(1)2016"
+global x_axis		 = "1996(1)2015"
 
 /*
 synth VDEMy $predictors $pre_treatment, trunit(21) trperiod($treat_y)	 ///
@@ -393,7 +394,7 @@ drop	pre_rmspe
 drop	post_rmspe
 drop 	lead
 
-label variable	NIC_SCA "Ecuador"
+label variable	NIC_SCA "Nicaragua"
 
 
 global title	= "V-Dem: Liberal Democracy Index in Nicaragua"
@@ -403,15 +404,15 @@ global label1	= "Nicaragua"
 global label2	= "Synthetic Nicaragua"
 
 twoway line VDEMy	   year if id==21, lpattern(solid) 						 ///
-	|| line NIC_SCA    year if id==21, lpattern(dash)  xline($treat_y)		 ///
-	   xlabel(1995(5)2015) 													 ///
+	|| line NIC_SCA    year if id==21, lpattern(dash)  xline(2005)			 ///
+	   xlabel(1996(5)2015) 													 ///
 	   ytitle($ytitle1) 				 									 ///
 	   legend(label(1 $label1) label(2 $label2) position(6) rows(1)) nodraw
 	   graph rename NIC_synth, replace
 	   
-twoway bar 	NIC_effect year if id==21, color(gray%50) xline($treat_y) 		 ///
+twoway bar 	NIC_effect year if id==21, color(gray%50) xline(2005)	 		 ///
 	   yline(0, lpattern(solid))											 ///
-	   xlabel(1995(5)2015)													 ///
+	   xlabel(1996(5)2015)													 ///
 	   ytitle($ytitle2) nodraw
 	   graph rename NIC_effect, replace
  
@@ -442,8 +443,8 @@ drop if country_code=="BOL"
 drop if country_code=="ECU"
 drop if country_code=="NIC"
 
-drop if year < 1988
-drop if year > 2008
+drop if year < 1989
+drop if year > 2007
 
 
 parallel numprocessors	// 8 processors
@@ -451,13 +452,13 @@ parallel initialize 6
 
 global convergence	 = "nested allopt technique(nr)"
 global predictors    = "VDEM6 WGI1 WGI3 ICRG polity2 FH_PR FH_CL"
-global pre_treatment = "VDEMy(1988) VDEMy(1991) VDEMy(1994) VDEMy(1997)"
-global treat_y       = "1998"
-global x_axis		 = "1988(1)2008"
+global pre_treatment = "VDEMy(1989) VDEMy(1991) VDEMy(1994) VDEMy(1998)"
+global treat_y       = "1999"
+global x_axis		 = "1989(1)2007"
 
 /*
 synth VDEMy $predictors $pre_treatment, trunit(32) trperiod($treat_y)	 ///
-	  unitnames(country) resultsperiod($x_axis)	
+	  unitnames(country) resultsperiod($x_axis)
 */
     
 synth_runner VDEMy $predictors $pre_treatment,								 ///
@@ -467,14 +468,13 @@ synth_runner VDEMy $predictors $pre_treatment,								 ///
 			 graphs
 
 
-
 rename 	VDEMy_synth	VEN_SCA
 rename 	effect		VEN_effect
 drop	pre_rmspe
 drop	post_rmspe
 drop 	lead
 
-label variable	VEN_SCA "Ecuador"
+label variable	VEN_SCA "Venezuela"
 
 
 global title	= "V-Dem: Liberal Democracy Index in Venezuela"
@@ -484,16 +484,16 @@ global label1	= "Venezuela"
 global label2	= "Synthetic Venezuela"
 
 twoway line VDEMy	   year if id==32, lpattern(solid) 						 ///
-	|| line VEN_SCA    year if id==32, lpattern(dash)  xline($treat_y)		 ///
-	   xlabel(1985(5)2010) 													 ///
+	|| line VEN_SCA    year if id==32, lpattern(dash)  xline(1998)			 ///
+	   xlabel(1988(5)2008) 													 ///
 	   ytitle($ytitle1) 				 									 ///
 	   legend(label(1 $label1) label(2 $label2) position(6) rows(1)) nodraw
 	   graph rename VEN_synth, replace
 	   
-twoway bar 	VEN_effect year if id==32, color(gray%50) xline($treat_y) 		 ///
+twoway bar 	VEN_effect year if id==32, color(gray%50) xline(1998)	 		 ///
 	   yline(0, lpattern(solid))											 ///
-	   xlabel(1985(5)2010)													 ///
-	   ytitle($ytitle2) 
+	   xlabel(1988(5)2008)													 ///
+	   ytitle($ytitle2) nodraw
 	   graph rename VEN_effect, replace
  
 	
@@ -513,6 +513,7 @@ merge 1:1 t using data_avg
 drop _merge
 save data_avg, replace
 
+
 ***|============================================================================
 **#| AVERAGE PLOTS
 ***|----------------------------------------------------------------------------
@@ -526,20 +527,18 @@ gen EFFECT = VDEMy - synth
 global ytitle = "Average V-DEM: Liberal Democracy Index (0-100)"
 twoway line VDEMy t, lpattern(solid)										 ///
 	|| line synth t, lpattern(dash)  										 ///
-	   xline(0) xlabel(-10(2)10) ylabel(30(5)60) legend(off)				 ///
-	   ytitle($ytitle) 
+	   xline(-1) xlabel(-10(2)10) ylabel(30(5)60) legend(off)				 ///
+	   ytitle($ytitle) nodraw
 	   graph rename avg_synth, replace
 	   
 global ytitle = "Average synthetic effect"	   
-twoway bar 	EFFECT t, color(gray%50) xline(0) 								 ///
+twoway bar 	EFFECT t, color(gray%50) xline(-1) 								 ///
 	   yline(0, lpattern(solid))											 ///
 	   xlabel(-10(2)10)	ylabel(-30(5)10)									 ///
-	   ytitle($ytitle)
+	   ytitle($ytitle) nodraw
 	   graph rename avg_effect, replace
 	   
 
 graph combine avg_synth avg_effect, xcommon rows(2)	ysize(8)	
 graph export Figures/Fig_average.png, replace
 graph drop _all
-
-help graph
