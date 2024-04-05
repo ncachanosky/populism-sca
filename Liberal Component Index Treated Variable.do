@@ -132,7 +132,7 @@ parallel initialize 6
 
 global convergence	 = "nested allopt technique(nr)"
 global predictors	 = "VDEM2 VDEM3 VDEM5 VDEM7 WGI1 FH_PR FH_CL"
-global pre_treatment = "VDEMy(1994) VDEMy(1997) VDEMy(1998) VDEMy(2002)"
+global pre_treatment = "VDEMy(1995) VDEMy(1997) VDEMy(1998) VDEMy(2002)"
 global treat_y       = "2003"
 global x_axis		 = "1993(1)2012"
 

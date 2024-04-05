@@ -138,7 +138,7 @@ global x_axis		 = "1993(1)2012"
 
 
 /*
-synth2 VDEMy $predictors $pre_treatment, trunit(2) trperiod($treat_y)		 ///
+synth VDEMy $predictors $pre_treatment, trunit(2) trperiod($treat_y)		 ///
 	  unitnames(country) resultsperiod($x_axis)
 */
     
@@ -374,7 +374,7 @@ parallel numprocessors	// 8 processors
 parallel initialize 6
 
 global convergence	 = "nested allopt technique(nr)"
-global predictors    = "VDEM1 VDEM2 VDEM4 VDEM5 VDEM6 WGI1 ICRG FH_CL"
+global predictors    = "VDEM2 VDEM4 VDEM5 VDEM6 WGI1 ICRG FH_CL"
 global pre_treatment = "VDEMy(1996) VDEMy(2001) VDEMy(2002) VDEMy(2004)"
 global treat_y       = "2006"
 global x_axis		 = "1996(1)2015"
